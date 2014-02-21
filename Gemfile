@@ -1,5 +1,9 @@
 source 'http://rubygems.org'
 
+ruby '1.9.3', :engine => 'ruby', :engine_version => '1.9.3', :patchlevel => '392'
+#ruby=ruby-1.9.3-p392
+#ruby-gemset=foremanproxy
+
 gem 'json'
 gem 'sinatra', '< 1.4.3'
 

@@ -1,10 +1,15 @@
+# OS generated files #
+######################
+.DS_Store*
+Thumbs.db
+
 tags
 .idea/
 config/settings.yml
 .idea
 logs
 *swp
-Gemfile.lock
+#Gemfile.lock
 bundler.d/Gemfile.local.rb
 .rbenv*
 .rvmrc*
