@@ -49,7 +49,7 @@ module Proxy::Util
   # accepts a binary name and an array of paths to search first
   # if path is omitted will search only in user PATH
   def which(bin, *path)
-    path = path + ['/usr/bin', '/usr/sbin', '/usr/local/bin', '/usr/local/sbin']
+    path = default_path(path)
     path += ENV['PATH'].split(File::PATH_SEPARATOR)
     path.flatten.uniq.each do |dir|
       dest = File.join(dir, bin)
@@ -59,6 +59,15 @@ module Proxy::Util
   rescue StandardError => e
     logger.warn e
     return false
+  end
+
+  def default_path(path)
+    dpath = case SETTINGS.default_path
+      when String then SETTINGS.default_path.split(File::PATH_SEPARATOR)
+      when Array  then SETTINGS.default_path
+      else ;           []
+    end
+    dpath + path + ['/usr/bin', '/usr/sbin', '/usr/local/bin', '/usr/local/sbin']
   end
 
   def escape_for_shell(command)
