@@ -56,6 +56,8 @@ module Proxy::Puppet
           if modulepath.include?("$confdir")
             if conf[:main][:confdir]
               modulepath.gsub!("$confdir", conf[:main][:confdir])
+            elsif SETTINGS.puppetdir
+              modulepath.gsub!("$confdir", SETTINGS.puppetdir)
             else
               # /etc/puppet is the default if $confdir is not defined
               modulepath.gsub!("$confdir", "/etc/puppet")
