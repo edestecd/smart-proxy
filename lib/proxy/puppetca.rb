@@ -108,13 +108,15 @@ module Proxy::PuppetCA
       default_path = ["/opt/puppet/bin", "/opt/puppet/sbin"]
 
       # puppetca is the old method of using puppet cert which is new in puppet 2.6
-      if Puppet::PUPPETVERSION.to_i < 3
+      if SETTINGS.bundle_exec
+        @puppetca = "#{SETTINGS.bundle_exec} puppet"
+      elsif Puppet::PUPPETVERSION.to_i < 3
         @puppetca = which("puppetca", default_path) || which("puppet", default_path)
       else
         @puppetca = which("puppet", default_path)
       end
 
-      unless File.exists?("#{@puppetca}")
+      unless SETTINGS.bundle_exec || File.exists?("#{@puppetca}")
         logger.warn "unable to find puppetca binary"
         raise "unable to find puppetca"
       end
