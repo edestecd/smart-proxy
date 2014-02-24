@@ -6,6 +6,7 @@ module Proxy::Puppet
       cmd = []
       cmd.push(which('sudo')) if SETTINGS.puppetssh_sudo
       cmd.push(which('ssh'))
+      cmd.push("-oStrictHostKeyChecking=no") if SETTINGS.puppetssh_auto_accept_host_key
       cmd.push("-l #{SETTINGS.puppetssh_user}") if SETTINGS.puppetssh_user
       if (file = SETTINGS.puppetssh_keyfile)
         if File.exists?(file)
